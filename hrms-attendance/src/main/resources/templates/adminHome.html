@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General page styles */
+        body {
+            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #006241 ;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        header .logo {
+            height: 60px;
+            margin-right: 20px;
+        }
+
+        header .main-heading {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 0;
+            text-align: center;
+            flex: 1;
+        }
+
+        header .logout-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 0.9em;
+            padding: 8px 15px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        header .logout-btn:hover {
+            background-color: #a71d2a;
+        }
+
+        /* Subheading styles */
+        .sub-heading {
+            text-align: center;
+            font-size: 1.5em;
+            color: #6c757d;
+            margin: 30px 0;
+        }
+
+        /* Card container styling */
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-body p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        .card .btn {
+            display: block;
+            margin: 10px auto 0;
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .card .btn:hover {
+            background-color: #218838;
+        }
+
+        /* Row styling */
+        .row {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        /* Add responsiveness */
+        @media (max-width: 768px) {
+            header .main-heading {
+                font-size: 1.5em;
+                text-align: center;
+            }
+
+            .row {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <img src="/images/hrmslogo.png" alt="HRMS Logo" class="logo">
+    <h1 class="main-heading">Welcome to Magadh University</h1>
+    <a href="/logout" class="logout-btn">Logout</a>
+</header>
+<main class="container">
+    <div class="sub-heading">Welcome Admin Dashboard</div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Manage Employees</div>
+                <div class="card-body">
+                    <p>View and manage employee information.</p>
+                    <a href="/employees" class="btn">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Manage Students</div>
+                <div class="card-body">
+                    <p>View and manage student information.</p>
+                    <a href="/students" class="btn">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Reports</div>
+                <div class="card-body">
+                    <p>Generate and view reports.</p>
+                    <a href="/reports" class="btn">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Manage Attendance</div>
+                <div class="card-body">
+                    <p>View and manage attendance records.</p>
+                    <a href="/employees/attendance/manage" class="btn">Go</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

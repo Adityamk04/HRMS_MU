@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Sign in</title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Ubuntu', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Animated Background */
+    .bg {
+      animation: slide 3s ease-in-out infinite alternate;
+      background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+      bottom: 0;
+      left: -50%;
+      opacity: .5;
+      position: fixed;
+      right: -50%;
+      top: 0;
+      z-index: -1;
+    }
+
+    .bg2 {
+      animation-direction: alternate-reverse;
+      animation-duration: 4s;
+    }
+
+    .bg3 {
+      animation-duration: 5s;
+    }
+
+    @keyframes slide {
+      0% {
+        transform: translateX(-25%);
+      }
+      100% {
+        transform: translateX(25%);
+      }
+    }
+
+    /* Main Container */
+    .main {
+      background-color: #FFFFFF;
+      width: 400px;
+      padding: 30px;
+      border-radius: 1.5em;
+      box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.40);
+      text-align: center;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      height: 80px;
+      width: auto;
+    }
+
+    .welcome {
+      display: block;
+      color: #4CAF50;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .sign {
+      color: #4CAF50;
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: bold;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-group {
+      width: 80%;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: #4CAF50;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .submit {
+      cursor: pointer;
+      border-radius: 5em;
+      color: #fff;
+      background: #4CAF50;
+      border: 0;
+      padding: 10px 40px;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 14px;
+      box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    }
+
+    .submit:hover {
+      background: #45a049;
+    }
+
+    .forgot {
+      color: #E1BEE7;
+      padding-top: 15px;
+    }
+
+    a {
+      color: #E1BEE7;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .main {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Background Layers -->
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+
+<!-- Main Content -->
+<div class="main">
+  <header>
+    <img src="/images/hrmslogo.png" alt="HRMS Logo" class="logo">
+    <span class="welcome">Welcome to Magadh University</span>
+  </header>
+  <p class="sign">Sign in</p>
+  <form class="form1" th:action="@{/login}" method="post" onsubmit="return validateForm()">
+    <div class="input-group">
+      <label for="username">Username</label>
+      <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Enter your username"
+              minlength="3"
+              required
+              oninput="validateUsername()"
+              title="Username should be at least 3 characters long and contain only alphabets.">
+      <span id="username-error" class="error"></span>
+    </div>
+
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              minlength="6"
+              required
+              title="Password should be at least 6 characters long.">
+      <span id="password-error" class="error"></span>
+    </div>
+
+    <button type="submit" class="submit">Sign in</button>
+  </form>
+</div>
+
+<script>
+  function validateUsername() {
+    const usernameField = document.getElementById('username');
+    const usernameError = document.getElementById('username-error');
+    const regex = /^[a-zA-Z]*$/; // Only allows alphabets
+
+    if (!regex.test(usernameField.value)) {
+      usernameError.textContent = "Username can only contain alphabets.";
+    } else {
+      usernameError.textContent = "";
+    }
+  }
+
+  function validateForm() {
+    const usernameField = document.getElementById('username');
+    const usernameError = document.getElementById('username-error');
+    const passwordField = document.getElementById('password');
+    const passwordError = document.getElementById('password-error');
+
+    let isValid = true;
+
+    // Validate username
+    if (usernameField.value.length < 3) {
+      usernameError.textContent = "Username must be at least 3 characters long.";
+      isValid = false;
+    }
+
+    // Validate password
+    if (passwordField.value.length < 6) {
+      passwordError.textContent = "Password must be at least 6 characters long.";
+      isValid = false;
+    } else {
+      passwordError.textContent = "";
+    }
+
+    return isValid;
+  }
+</script>
+</body>
+</html>

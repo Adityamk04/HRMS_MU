@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create Student Marks</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Styles for the header */
+    header {
+      background-color: #007bff; /* Blue background */
+      color: white; /* White text */
+      text-align: center; /* Center the text */
+      padding: 20px 0; /* Add padding for height */
+      font-size: 2em; /* Large font size */
+      font-weight: bold; /* Bold font */
+    }
+
+    /* Subheading styling */
+    main h1 {
+      text-align: center;
+      font-size: 1.8em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    /* Validation styles */
+    .invalid-feedback {
+      display: none;
+      color: red;
+      font-size: 0.85em;
+    }
+
+    .form-control.is-invalid + .invalid-feedback {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<header>
+  Welcome to Magadh University
+</header>
+<main class="container">
+  <h1>Create Student Marks</h1>
+  <div th:if="${message}" class="alert alert-success" role="alert">
+    <span th:text="${message}"></span>
+  </div>
+  <form action="#" th:action="@{/student-marks/create}" th:object="${studentMarks}" method="post" id="marksForm">
+    <div class="form-group">
+      <label for="student">Student</label>
+      <select class="form-control" id="student" name="studentId" th:field="*{studentId}" required>
+        <option th:each="student : ${students}" th:value="${student.studentId}" th:text="${student.name}"></option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="subjectId">Subject ID</label>
+      <input type="text" class="form-control" id="subjectId" name="subjectId" th:field="*{subjectId}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="semester">Semester</label>
+      <input type="text" class="form-control" id="semester" name="semester" th:field="*{semester}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="internal1">Internal 1 (0-25)</label>
+      <input type="number" class="form-control" id="internal1" name="internal1" th:field="*{internal1}" min="0" max="25" required>
+      <div class="invalid-feedback">Please enter a value between 0 and 25.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="internal2">Internal 2 (0-25)</label>
+      <input type="number" class="form-control" id="internal2" name="internal2" th:field="*{internal2}" min="0" max="25" required>
+      <div class="invalid-feedback">Please enter a value between 0 and 25.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="internal3">Internal 3 (0-25)</label>
+      <input type="number" class="form-control" id="internal3" name="internal3" th:field="*{internal3}" min="0" max="25" required>
+      <div class="invalid-feedback">Please enter a value between 0 and 25.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="bestInternalMarks">Best Internal Marks</label>
+      <input type="number" class="form-control" id="bestInternalMarks" name="bestInternalMarks" th:field="*{bestInternalMarks}" readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="finalExamMarks">Final Exam Marks (0-100)</label>
+      <input type="number" class="form-control" id="finalExamMarks" name="finalExamMarks" th:field="*{finalExamMarks}" min="0" max="100" required>
+      <div class="invalid-feedback">Please enter a value between 0 and 100.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="totalMarks">Total Marks</label>
+      <input type="number" class="form-control" id="totalMarks" name="totalMarks" th:field="*{totalMarks}" readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="percentage">Percentage</label>
+      <input type="number" class="form-control" id="percentage" name="percentage" th:field="*{percentage}" readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="division">Division</label>
+      <input type="text" class="form-control" id="division" name="division" th:field="*{division}" readonly>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Student Marks</button>
+  </form>
+</main>
+
+<script>
+  document.getElementById("marksForm").addEventListener("input", function (event) {
+    const target = event.target;
+    if (target.type === "number") {
+      const min = parseInt(target.min, 10);
+      const max = parseInt(target.max, 10);
+      const value = parseInt(target.value, 10);
+
+      if (value < min || value > max) {
+        target.classList.add("is-invalid");
+      } else {
+        target.classList.remove("is-invalid");
+      }
+    }
+  });
+</script>
+</body>
+</html>
